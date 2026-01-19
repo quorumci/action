@@ -1,0 +1,105 @@
+name: 'QuorumCI Run'
+description: 'Run quorum-verified checks with M-of-N processor agreement'
+author: 'QuorumCI'
+branding:
+  icon: 'check-circle'
+  color: 'blue'
+
+inputs:
+  type:
+    description: 'Job type (http, webhook, script, dns, or tls)'
+    required: true
+  # HTTP job inputs
+  url:
+    description: 'Target URL for HTTP jobs'
+    required: false
+  method:
+    description: 'HTTP method'
+    required: false
+    default: 'GET'
+  body:
+    description: 'Request body (HTTP jobs)'
+    required: false
+  # Webhook job inputs
+  endpoint:
+    description: 'Webhook endpoint URL (webhook jobs)'
+    required: false
+  payload:
+    description: 'Webhook JSON payload (webhook jobs)'
+    required: false
+  # Script job inputs
+  script:
+    description: 'Inline script code (script jobs)'
+    required: false
+  script-file:
+    description: 'Path to script file (script jobs)'
+    required: false
+  runtime:
+    description: 'Script runtime (node or bash)'
+    required: false
+    default: 'node'
+  script-args:
+    description: 'Script arguments (comma-separated)'
+    required: false
+  script-env:
+    description: 'Script environment variables (JSON format)'
+    required: false
+  # DNS job inputs
+  hostname:
+    description: 'Hostname to lookup (dns jobs)'
+    required: false
+  record-type:
+    description: 'DNS record type (A|AAAA|CNAME|MX|TXT|NS|SOA|PTR)'
+    required: false
+    default: 'A'
+  expected-values:
+    description: 'Expected DNS values (comma-separated)'
+    required: false
+  nameserver:
+    description: 'Custom DNS server (e.g., 8.8.8.8)'
+    required: false
+  # TLS job inputs
+  port:
+    description: 'TLS port (default: 443)'
+    required: false
+    default: '443'
+  min-days-valid:
+    description: 'Minimum days until certificate expiry'
+    required: false
+  expected-issuer:
+    description: 'Expected certificate issuer (partial match)'
+    required: false
+  # Common inputs
+  headers:
+    description: 'Request headers (JSON format)'
+    required: false
+  expected-status:
+    description: 'Expected HTTP status code(s), comma-separated for multiple'
+    required: false
+    default: '200'
+  executions:
+    description: 'Number of executions (N)'
+    required: false
+    default: '3'
+  quorum:
+    description: 'Required agreement (M)'
+    required: false
+    default: '2'
+  timeout-ms:
+    description: 'Timeout in milliseconds'
+    required: false
+    default: '30000'
+
+outputs:
+  verdict:
+    description: 'Quorum verdict (pass/fail/inconclusive)'
+  quorum-met:
+    description: 'Whether quorum was achieved (true/false)'
+  agreement-count:
+    description: 'Number of agreeing executions'
+  result-json:
+    description: 'Full QuorumResult as JSON'
+
+runs:
+  using: 'node20'
+  main: 'dist/index.js'
