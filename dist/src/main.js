@@ -1,95 +1,42 @@
 import * as core from '@actions/core';
 import { randomUUID } from 'node:crypto';
-import { HttpJobRunner, WebhookJobRunner, ScriptJobRunner, DnsJobRunner, TlsJobRunner, QuorumAggregator, } from '@quorumci/core';
+import { ManagedProvider } from '@quorumci/core';
 import { getInputs, toHttpJobConfig, toWebhookJobConfig, toScriptJobConfig, toDnsJobConfig, toTlsJobConfig, toQuorumConfig, } from './inputs.js';
 import { setOutputs } from './outputs.js';
 import { writeSummary } from './summary.js';
+async function getJobConfig(inputs) {
+    switch (inputs.type) {
+        case 'http':
+            return toHttpJobConfig(inputs);
+        case 'webhook':
+            return toWebhookJobConfig(inputs);
+        case 'script':
+            return await toScriptJobConfig(inputs);
+        case 'dns':
+            return toDnsJobConfig(inputs);
+        case 'tls':
+            return toTlsJobConfig(inputs);
+    }
+}
 async function run() {
     try {
         const inputs = getInputs();
+        const providerConfig = {
+            apiKey: inputs.apiKey,
+        };
+        if (inputs.apiBaseUrl !== undefined) {
+            providerConfig.baseUrl = inputs.apiBaseUrl;
+        }
+        const provider = new ManagedProvider(providerConfig);
+        const jobConfig = await getJobConfig(inputs);
         const quorumConfig = toQuorumConfig(inputs);
-        const aggregator = new QuorumAggregator();
-        const jobId = randomUUID();
-        const startTime = Date.now();
-        const results = [];
-        if (inputs.type === 'http') {
-            const jobConfig = toHttpJobConfig(inputs);
-            const runner = new HttpJobRunner();
-            core.info('Running ' +
-                String(inputs.executions) +
-                ' executions against ' +
-                (inputs.url ?? '') +
-                '...');
-            for (let i = 0; i < inputs.executions; i++) {
-                const result = await runner.execute(jobConfig, { processorId: 'local-' + String(i + 1) });
-                results.push(result);
-                core.info('  Execution ' + String(i + 1) + ': ' + result.status);
-            }
-        }
-        else if (inputs.type === 'webhook') {
-            const jobConfig = toWebhookJobConfig(inputs);
-            const runner = new WebhookJobRunner();
-            core.info('Running ' +
-                String(inputs.executions) +
-                ' webhook executions against ' +
-                (inputs.endpoint ?? '') +
-                '...');
-            for (let i = 0; i < inputs.executions; i++) {
-                const result = await runner.execute(jobConfig, { processorId: 'local-' + String(i + 1) });
-                results.push(result);
-                core.info('  Execution ' + String(i + 1) + ': ' + result.status);
-            }
-        }
-        else if (inputs.type === 'script') {
-            const jobConfig = await toScriptJobConfig(inputs);
-            const runner = new ScriptJobRunner();
-            const runtime = inputs.runtime ?? 'node';
-            core.info('Running ' +
-                String(inputs.executions) +
-                ' script executions with ' +
-                runtime +
-                ' runtime...');
-            for (let i = 0; i < inputs.executions; i++) {
-                const result = await runner.execute(jobConfig, { processorId: 'local-' + String(i + 1) });
-                results.push(result);
-                core.info('  Execution ' + String(i + 1) + ': ' + result.status);
-            }
-        }
-        else if (inputs.type === 'dns') {
-            const jobConfig = toDnsJobConfig(inputs);
-            const runner = new DnsJobRunner();
-            const recordType = inputs.recordType ?? 'A';
-            core.info('Running ' +
-                String(inputs.executions) +
-                ' DNS lookups for ' +
-                (inputs.hostname ?? '') +
-                ' (' +
-                recordType +
-                ')...');
-            for (let i = 0; i < inputs.executions; i++) {
-                const result = await runner.execute(jobConfig, { processorId: 'local-' + String(i + 1) });
-                results.push(result);
-                core.info('  Execution ' + String(i + 1) + ': ' + result.status);
-            }
-        }
-        else {
-            const jobConfig = toTlsJobConfig(inputs);
-            const runner = new TlsJobRunner();
-            const port = inputs.port ?? 443;
-            core.info('Running ' +
-                String(inputs.executions) +
-                ' TLS certificate checks for ' +
-                (inputs.hostname ?? '') +
-                ':' +
-                String(port) +
-                '...');
-            for (let i = 0; i < inputs.executions; i++) {
-                const result = await runner.execute(jobConfig, { processorId: 'local-' + String(i + 1) });
-                results.push(result);
-                core.info('  Execution ' + String(i + 1) + ': ' + result.status);
-            }
-        }
-        const quorumResult = aggregator.aggregate(results, quorumConfig, jobId, startTime);
+        const job = {
+            id: randomUUID(),
+            config: jobConfig,
+            quorum: quorumConfig,
+            createdAt: new Date().toISOString(),
+        };
+        const quorumResult = await provider.executeForResult(job);
         setOutputs(quorumResult);
         await writeSummary(quorumResult, inputs);
         if (quorumResult.verdict === 'pass') {

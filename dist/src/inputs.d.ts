@@ -1,6 +1,8 @@
 import type { HttpMethod, HttpJobConfig, WebhookJobConfig, ScriptJobConfig, ScriptRuntime, DnsJobConfig, DnsRecordType, TlsJobConfig, QuorumConfig } from '@quorumci/core';
 export interface ActionInputs {
     type: 'http' | 'webhook' | 'script' | 'dns' | 'tls';
+    apiKey: string;
+    apiBaseUrl?: string;
     url?: string;
     method?: HttpMethod;
     body?: string;

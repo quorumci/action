@@ -26676,8 +26676,8 @@ module.exports = parseParams
 /******/ 	}
 /******/ 	// Create a new module (and put it into the cache)
 /******/ 	var module = __webpack_module_cache__[moduleId] = {
-/******/ 		id: moduleId,
-/******/ 		loaded: false,
+/******/ 		// no module.id needed
+/******/ 		// no module.loaded needed
 /******/ 		exports: {}
 /******/ 	};
 /******/ 
@@ -26690,15 +26690,9 @@ module.exports = parseParams
 /******/ 		if(threw) delete __webpack_module_cache__[moduleId];
 /******/ 	}
 /******/ 
-/******/ 	// Flag the module as loaded
-/******/ 	module.loaded = true;
-/******/ 
 /******/ 	// Return the exports of the module
 /******/ 	return module.exports;
 /******/ }
-/******/ 
-/******/ // expose the modules object (__webpack_modules__)
-/******/ __nccwpck_require__.m = __webpack_modules__;
 /******/ 
 /************************************************************************/
 /******/ /* webpack/runtime/create fake namespace object */
@@ -26743,28 +26737,6 @@ module.exports = parseParams
 /******/ 	};
 /******/ })();
 /******/ 
-/******/ /* webpack/runtime/ensure chunk */
-/******/ (() => {
-/******/ 	__nccwpck_require__.f = {};
-/******/ 	// This file contains only the entry chunk.
-/******/ 	// The chunk loading function for additional chunks
-/******/ 	__nccwpck_require__.e = (chunkId) => {
-/******/ 		return Promise.all(Object.keys(__nccwpck_require__.f).reduce((promises, key) => {
-/******/ 			__nccwpck_require__.f[key](chunkId, promises);
-/******/ 			return promises;
-/******/ 		}, []));
-/******/ 	};
-/******/ })();
-/******/ 
-/******/ /* webpack/runtime/get javascript chunk filename */
-/******/ (() => {
-/******/ 	// This function allow to reference async chunks
-/******/ 	__nccwpck_require__.u = (chunkId) => {
-/******/ 		// return url for filenames based on template
-/******/ 		return "" + chunkId + ".index.js";
-/******/ 	};
-/******/ })();
-/******/ 
 /******/ /* webpack/runtime/hasOwnProperty shorthand */
 /******/ (() => {
 /******/ 	__nccwpck_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
@@ -26781,81 +26753,9 @@ module.exports = parseParams
 /******/ 	};
 /******/ })();
 /******/ 
-/******/ /* webpack/runtime/node module decorator */
-/******/ (() => {
-/******/ 	__nccwpck_require__.nmd = (module) => {
-/******/ 		module.paths = [];
-/******/ 		if (!module.children) module.children = [];
-/******/ 		return module;
-/******/ 	};
-/******/ })();
-/******/ 
 /******/ /* webpack/runtime/compat */
 /******/ 
 /******/ if (typeof __nccwpck_require__ !== 'undefined') __nccwpck_require__.ab = new URL('.', import.meta.url).pathname.slice(import.meta.url.match(/^file:\/\/\/\w:/) ? 1 : 0, -1) + "/";
-/******/ 
-/******/ /* webpack/runtime/import chunk loading */
-/******/ (() => {
-/******/ 	// no baseURI
-/******/ 	
-/******/ 	// object to store loaded and loading chunks
-/******/ 	// undefined = chunk not loaded, null = chunk preloaded/prefetched
-/******/ 	// [resolve, Promise] = chunk loading, 0 = chunk loaded
-/******/ 	var installedChunks = {
-/******/ 		792: 0
-/******/ 	};
-/******/ 	
-/******/ 	var installChunk = (data) => {
-/******/ 		var {ids, modules, runtime} = data;
-/******/ 		// add "modules" to the modules object,
-/******/ 		// then flag all "ids" as loaded and fire callback
-/******/ 		var moduleId, chunkId, i = 0;
-/******/ 		for(moduleId in modules) {
-/******/ 			if(__nccwpck_require__.o(modules, moduleId)) {
-/******/ 				__nccwpck_require__.m[moduleId] = modules[moduleId];
-/******/ 			}
-/******/ 		}
-/******/ 		if(runtime) runtime(__nccwpck_require__);
-/******/ 		for(;i < ids.length; i++) {
-/******/ 			chunkId = ids[i];
-/******/ 			if(__nccwpck_require__.o(installedChunks, chunkId) && installedChunks[chunkId]) {
-/******/ 				installedChunks[chunkId][0]();
-/******/ 			}
-/******/ 			installedChunks[ids[i]] = 0;
-/******/ 		}
-/******/ 	
-/******/ 	}
-/******/ 	
-/******/ 	__nccwpck_require__.f.j = (chunkId, promises) => {
-/******/ 			// import() chunk loading for javascript
-/******/ 			var installedChunkData = __nccwpck_require__.o(installedChunks, chunkId) ? installedChunks[chunkId] : undefined;
-/******/ 			if(installedChunkData !== 0) { // 0 means "already installed".
-/******/ 	
-/******/ 				// a Promise means "currently loading".
-/******/ 				if(installedChunkData) {
-/******/ 					promises.push(installedChunkData[1]);
-/******/ 				} else {
-/******/ 					if(true) { // all chunks have JS
-/******/ 						// setup Promise in chunk cache
-/******/ 						var promise = import("./" + __nccwpck_require__.u(chunkId)).then(installChunk, (e) => {
-/******/ 							if(installedChunks[chunkId] !== 0) installedChunks[chunkId] = undefined;
-/******/ 							throw e;
-/******/ 						});
-/******/ 						var promise = Promise.race([promise, new Promise((resolve) => (installedChunkData = installedChunks[chunkId] = [resolve]))])
-/******/ 						promises.push(installedChunkData[1] = promise);
-/******/ 					}
-/******/ 				}
-/******/ 			}
-/******/ 	};
-/******/ 	
-/******/ 	// no prefetching
-/******/ 	
-/******/ 	// no preloaded
-/******/ 	
-/******/ 	// no external install chunk
-/******/ 	
-/******/ 	// no on chunks loaded
-/******/ })();
 /******/ 
 /************************************************************************/
 var __webpack_exports__ = {};
@@ -26874,740 +26774,226 @@ const DEFAULT_QUORUM = {
 ;// CONCATENATED MODULE: ../core/dist/types/index.js
 
 //# sourceMappingURL=index.js.map
-;// CONCATENATED MODULE: ../core/dist/aggregator/aggregator.js
+;// CONCATENATED MODULE: ../core/dist/adapters/managed.js
 /**
- * Aggregates execution results and determines quorum verdict.
+ * ManagedAdapter - Executes jobs via the QuorumCI managed API.
  *
- * Algorithm:
- * 1. Filter to successful results only (status === 'success')
- * 2. Group by responseHash
- * 3. Find largest agreeing group
- * 4. Verdict logic:
- *    - pass: largest group >= M required
- *    - fail: impossible to reach M (not enough successful results)
- *    - inconclusive: still waiting (should not be returned from final aggregate)
- */
-class QuorumAggregator {
-    aggregate(results, config, jobId, startTime) {
-        const timestamp = new Date().toISOString();
-        const durationMs = Date.now() - startTime;
-        // Filter to successful results only
-        const successfulResults = results.filter((r) => r.status === 'success');
-        // Group by responseHash
-        const hashGroups = new Map();
-        for (const result of successfulResults) {
-            const existing = hashGroups.get(result.responseHash);
-            if (existing) {
-                existing.push(result);
-            }
-            else {
-                hashGroups.set(result.responseHash, [result]);
-            }
-        }
-        // Find largest agreeing group
-        let largestGroup = [];
-        let consensusHash;
-        for (const [hash, group] of hashGroups) {
-            if (group.length > largestGroup.length) {
-                largestGroup = group;
-                consensusHash = hash;
-            }
-        }
-        const agreementCount = largestGroup.length;
-        const verdict = this.determineVerdict(agreementCount, successfulResults.length, config.required, config.executions);
-        const baseResult = {
-            version: '1.0.0',
-            jobId,
-            verdict,
-            quorumMet: verdict === 'pass',
-            agreementCount,
-            totalExecutions: results.length,
-            requiredAgreement: config.required,
-            executions: results,
-            timestamp,
-            durationMs,
-        };
-        if (verdict === 'pass' && consensusHash !== undefined) {
-            return { ...baseResult, consensusHash };
-        }
-        return baseResult;
-    }
-    determineVerdict(agreementCount, successCount, required, _totalExpected) {
-        // Pass: largest agreeing group >= M required
-        if (agreementCount >= required) {
-            return 'pass';
-        }
-        // Fail: impossible to reach M (not enough successful results)
-        // Even if all remaining successful results agreed, we couldn't reach M
-        if (successCount < required) {
-            return 'fail';
-        }
-        // If we have enough successful results but not enough agreement,
-        // it means there's disagreement - this is a fail
-        return 'fail';
-    }
-}
-//# sourceMappingURL=aggregator.js.map
-// EXTERNAL MODULE: external "crypto"
-var external_crypto_ = __nccwpck_require__(6982);
-;// CONCATENATED MODULE: ../core/dist/aggregator/hash.js
-
-/**
- * Hash a response for quorum comparison.
- * Uses SHA-256 of statusCode + SHA256(body).
- * Headers are excluded as they are non-deterministic.
- */
-function hash_hashResponse(statusCode, body) {
-    const bodyHash = (0,external_crypto_.createHash)('sha256').update(body).digest('hex');
-    return (0,external_crypto_.createHash)('sha256')
-        .update(String(statusCode) + bodyHash)
-        .digest('hex');
-}
-//# sourceMappingURL=hash.js.map
-;// CONCATENATED MODULE: ../core/dist/aggregator/index.js
-
-
-//# sourceMappingURL=index.js.map
-;// CONCATENATED MODULE: ../core/dist/providers/mock.js
-
-/**
- * Mock execution provider for testing.
- * Allows controlled, deterministic test scenarios.
- */
-class MockProvider {
-    responses;
-    name = 'mock';
-    constructor(responses) {
-        this.responses = responses;
-    }
-    async execute(_job) {
-        const results = [];
-        for (const response of this.responses) {
-            if (response.delayMs !== undefined && response.delayMs > 0) {
-                await this.delay(response.delayMs);
-            }
-            const statusCode = response.statusCode ?? (response.status === 'success' ? 200 : undefined);
-            const body = response.body ?? '';
-            const baseResult = {
-                processorId: response.processorId,
-                timestamp: new Date().toISOString(),
-                status: response.status,
-                responseHash: statusCode !== undefined ? hashResponse(statusCode, body) : '',
-                latencyMs: response.latencyMs ?? 100,
-            };
-            if (statusCode !== undefined) {
-                if (response.errorMessage !== undefined) {
-                    results.push({ ...baseResult, statusCode, errorMessage: response.errorMessage });
-                }
-                else {
-                    results.push({ ...baseResult, statusCode });
-                }
-            }
-            else if (response.errorMessage !== undefined) {
-                results.push({ ...baseResult, errorMessage: response.errorMessage });
-            }
-            else {
-                results.push(baseResult);
-            }
-        }
-        return results;
-    }
-    healthCheck() {
-        return Promise.resolve(true);
-    }
-    delay(ms) {
-        return new Promise((resolve) => {
-            setTimeout(resolve, ms);
-        });
-    }
-}
-//# sourceMappingURL=mock.js.map
-;// CONCATENATED MODULE: ../core/dist/providers/acurast-signature.js
-/**
- * P-256 (secp256r1) signature verification for Acurast processor results.
+ * Instead of connecting directly to Acurast, this adapter delegates
+ * job execution to the QuorumCI API which handles wallet management,
+ * Acurast communication, and result aggregation.
  *
- * Acurast processors sign their results with ECDSA using P-256 curve.
- * The signed message format is: 'acusig' + ipfsHash + content + timestamp
+ * Usage:
+ *   const adapter = new ManagedAdapter({ apiKey: 'qci_live_xxx' });
+ *   const results = await adapter.execute(job);
  */
-
-/**
- * Constructs the message that was signed by the processor.
- * Acurast prepends 'acusig' + IPFS hash before the payload.
- */
-function buildSignedMessage(payload) {
-    const prefix = 'acusig';
-    const timestamp = String(payload.timestamp);
-    const message = prefix + payload.ipfsHash + payload.content + timestamp;
-    if (payload.nonce) {
-        return Buffer.from(message + payload.nonce, 'utf-8');
+/** Default API base URL */
+const DEFAULT_BASE_URL = 'https://api.quorumci.com';
+/** Default timeout for waiting on job completion (2 minutes) */
+const DEFAULT_WAIT_TIMEOUT_MS = 120_000;
+/** Error thrown when API authentication fails */
+class AuthenticationError extends Error {
+    constructor(message) {
+        super(message);
+        this.name = 'AuthenticationError';
     }
-    return Buffer.from(message, 'utf-8');
 }
-/**
- * Converts a hex-encoded uncompressed P-256 public key to PEM format.
- * Uncompressed keys are 65 bytes: 0x04 || x (32 bytes) || y (32 bytes)
- */
-function publicKeyToPem(publicKeyHex) {
-    const publicKeyBuffer = Buffer.from(publicKeyHex, 'hex');
-    if (publicKeyBuffer.length !== 65 || publicKeyBuffer[0] !== 0x04) {
-        throw new Error('Invalid uncompressed P-256 public key: expected 65 bytes starting with 0x04, got ' +
-            String(publicKeyBuffer.length) +
-            ' bytes');
+/** Error thrown when quota is exceeded */
+class QuotaExceededError extends Error {
+    remaining;
+    limit;
+    constructor(message, remaining, limit) {
+        super(message);
+        this.name = 'QuotaExceededError';
+        this.remaining = remaining;
+        this.limit = limit;
     }
-    // P-256 OID: 1.2.840.10045.3.1.7
-    // SPKI structure for P-256 public key
-    const spkiPrefix = Buffer.from([
-        0x30,
-        0x59, // SEQUENCE, 89 bytes
-        0x30,
-        0x13, // SEQUENCE, 19 bytes (algorithm identifier)
-        0x06,
-        0x07, // OID, 7 bytes
-        0x2a,
-        0x86,
-        0x48,
-        0xce,
-        0x3d,
-        0x02,
-        0x01, // 1.2.840.10045.2.1 (ecPublicKey)
-        0x06,
-        0x08, // OID, 8 bytes
-        0x2a,
-        0x86,
-        0x48,
-        0xce,
-        0x3d,
-        0x03,
-        0x01,
-        0x07, // 1.2.840.10045.3.1.7 (prime256v1)
-        0x03,
-        0x42, // BIT STRING, 66 bytes
-        0x00, // no unused bits
-    ]);
-    const spki = Buffer.concat([spkiPrefix, publicKeyBuffer]);
-    const base64 = spki.toString('base64');
-    // Format as PEM
-    const lines = [];
-    for (let i = 0; i < base64.length; i += 64) {
-        lines.push(base64.slice(i, i + 64));
-    }
-    return '-----BEGIN PUBLIC KEY-----\n' + lines.join('\n') + '\n-----END PUBLIC KEY-----';
 }
-/**
- * Converts a raw signature (r || s, 64 bytes) to DER format.
- * ECDSA signatures from some libraries come in raw format.
- */
-function rawSignatureToDer(signatureHex) {
-    const sig = Buffer.from(signatureHex, 'hex');
-    // Check if already DER encoded (starts with 0x30)
-    if (sig[0] === 0x30) {
-        return sig;
+/** Error thrown on server errors */
+class ServerError extends Error {
+    statusCode;
+    retryable;
+    constructor(message, statusCode) {
+        super(message);
+        this.name = 'ServerError';
+        this.statusCode = statusCode;
+        this.retryable = statusCode >= 500;
     }
-    // Raw format: r (32 bytes) || s (32 bytes)
-    if (sig.length !== 64) {
-        throw new Error('Invalid raw signature length: expected 64 bytes, got ' + String(sig.length));
-    }
-    const r = sig.subarray(0, 32);
-    const s = sig.subarray(32, 64);
-    // DER encode each integer (may need leading 0x00 if high bit set)
-    const encodedR = derEncodeInteger(r);
-    const encodedS = derEncodeInteger(s);
-    // SEQUENCE { r INTEGER, s INTEGER }
-    const sequenceLength = encodedR.length + encodedS.length;
-    return Buffer.concat([Buffer.from([0x30, sequenceLength]), encodedR, encodedS]);
 }
-/**
- * DER-encodes a big integer, adding leading zero if needed.
- */
-function derEncodeInteger(value) {
-    // Remove leading zeros (except if needed for sign)
-    let start = 0;
-    while (start < value.length - 1 && value[start] === 0) {
-        start++;
-    }
-    const trimmed = value.subarray(start);
-    // Add leading zero if high bit is set (to indicate positive)
-    const firstByte = trimmed[0] ?? 0;
-    const needsPadding = firstByte >= 0x80;
-    const length = trimmed.length + (needsPadding ? 1 : 0);
-    if (needsPadding) {
-        return Buffer.concat([Buffer.from([0x02, length, 0x00]), trimmed]);
-    }
-    return Buffer.concat([Buffer.from([0x02, length]), trimmed]);
-}
-/**
- * Verifies an Acurast processor signature.
- *
- * @param signature - The signature object containing public key, signature, and payload
- * @returns true if the signature is valid, false otherwise
- */
-function acurast_signature_verifyProcessorSignature(signature) {
-    try {
-        // Build the message that was signed
-        const message = buildSignedMessage(signature.payload);
-        // Convert public key to PEM format
-        const publicKeyPem = publicKeyToPem(signature.publicKey);
-        // Convert signature to DER if needed
-        const signatureDer = rawSignatureToDer(signature.signature);
-        // Create verifier (SHA256 with ECDSA)
-        const verifier = crypto.createVerify('SHA256');
-        verifier.update(message);
-        // Verify signature
-        return verifier.verify(publicKeyPem, signatureDer);
-    }
-    catch (error) {
-        // Log error for debugging but return false for invalid signatures
-        console.error('Signature verification failed:', error);
-        return false;
+/** Error thrown when job wait times out */
+class JobTimeoutError extends Error {
+    jobId;
+    constructor(jobId, timeoutMs) {
+        super(`Job ${jobId} did not complete within ${String(timeoutMs)}ms`);
+        this.name = 'JobTimeoutError';
+        this.jobId = jobId;
     }
 }
 /**
- * Verifies that a public key is a valid P-256 uncompressed key.
+ * Execution adapter that delegates to the QuorumCI managed API.
  */
-function acurast_signature_isValidP256PublicKey(publicKeyHex) {
-    try {
-        const buffer = Buffer.from(publicKeyHex, 'hex');
-        return buffer.length === 65 && buffer[0] === 0x04;
-    }
-    catch {
-        return false;
-    }
-}
-//# sourceMappingURL=acurast-signature.js.map
-;// CONCATENATED MODULE: ../core/dist/providers/acurast.js
-/**
- * AcurastProvider - Executes jobs on Acurast's decentralized compute network.
- *
- * Acurast runs JavaScript on TEE-enabled smartphones. This provider:
- * 1. Connects to an on-demand deployment via WebSocket
- * 2. Sends job requests to multiple processors
- * 3. Collects signed results
- * 4. Verifies P-256 signatures from each processor
- *
- * @see https://docs.acurast.com/developers/on-demand-deployments/
- */
-
-
-
-/** Default WebSocket URL for Acurast P2P service */
-const DEFAULT_WS_URL = 'wss://websocket-proxy-1.prod.gke.acurast.com';
-/** Default connection timeout (15 seconds) */
-const DEFAULT_CONNECTION_TIMEOUT_MS = 15_000;
-/** Default response timeout (30 seconds) */
-const DEFAULT_RESPONSE_TIMEOUT_MS = 30_000;
-/**
- * Maps HttpMethod to Acurast-supported methods.
- * HEAD and PATCH fall back to GET and POST respectively.
- */
-function toAcurastMethod(method) {
-    switch (method) {
-        case 'HEAD':
-            return 'GET';
-        case 'PATCH':
-            return 'POST';
-        case 'GET':
-        case 'POST':
-        case 'PUT':
-        case 'DELETE':
-            return method;
-        default:
-            return 'GET';
-    }
-}
-/**
- * Execution provider for Acurast decentralized compute network.
- */
-class AcurastProvider {
-    name = 'acurast';
-    wsUrl;
-    deploymentPublicKeys;
-    keyPair;
-    connectionTimeoutMs;
-    responseTimeoutMs;
-    minResponses;
-    client = null;
-    connected = false;
+class managed_ManagedAdapter {
+    name = 'managed';
+    capabilities = {
+        supportedJobTypes: ['http', 'webhook', 'dns', 'tls'],
+        providesConsensus: true,
+        signatureVerification: 'p256',
+        isAsync: false,
+        metadata: {
+            managed: true,
+            requiresApiKey: true,
+        },
+    };
+    apiKey;
+    baseUrl;
+    waitTimeoutMs;
     constructor(config) {
-        this.wsUrl = config.wsUrl || DEFAULT_WS_URL;
-        this.deploymentPublicKeys = config.deploymentPublicKeys;
-        this.keyPair = config.keyPair;
-        this.connectionTimeoutMs = config.connectionTimeoutMs ?? DEFAULT_CONNECTION_TIMEOUT_MS;
-        this.responseTimeoutMs = config.responseTimeoutMs ?? DEFAULT_RESPONSE_TIMEOUT_MS;
-        this.minResponses = config.minResponses ?? 1;
-        // Validate deployment public keys
-        for (const key of this.deploymentPublicKeys) {
-            if (!isValidP256PublicKey(key)) {
-                throw new Error('Invalid P-256 public key: ' + key.substring(0, 20) + '...');
-            }
+        if (!config.apiKey) {
+            throw new Error('apiKey is required');
         }
+        // Validate API key format
+        if (!config.apiKey.startsWith('qci_live_') && !config.apiKey.startsWith('qci_test_')) {
+            throw new Error("Invalid API key format. Must start with 'qci_live_' or 'qci_test_'");
+        }
+        this.apiKey = config.apiKey;
+        this.baseUrl = (config.baseUrl ?? DEFAULT_BASE_URL).replace(/\/$/, '');
+        this.waitTimeoutMs = config.waitTimeoutMs ?? DEFAULT_WAIT_TIMEOUT_MS;
     }
     /**
-     * Executes a job on the Acurast network.
+     * Execute a job via the managed API.
      *
-     * @param job - The job to execute
-     * @returns Array of execution results from processors
+     * 1. POST /v1/jobs to create the job
+     * 2. GET /v1/jobs/:id/wait to wait for completion
+     * 3. Return the execution results
      */
     async execute(job) {
-        if (job.config.type !== 'http') {
-            throw new Error("AcurastProvider only supports 'http' jobs, got '" + job.config.type + "'");
-        }
-        const httpConfig = job.config;
-        // Connect if not already connected
-        if (!this.connected) {
-            await this.connect();
-        }
-        // Build the job request
-        const httpRequest = {
-            method: toAcurastMethod(httpConfig.method),
-            url: httpConfig.url,
-        };
-        if (httpConfig.headers) {
-            httpRequest.headers = httpConfig.headers;
-        }
-        if (httpConfig.body) {
-            httpRequest.body = httpConfig.body;
-        }
-        if (httpConfig.timeoutMs) {
-            httpRequest.timeoutMs = httpConfig.timeoutMs;
-        }
-        const request = {
-            requestId: randomUUID(),
-            type: 'http',
-            http: httpRequest,
-        };
-        // Send request to all processors and collect responses
-        const responses = await this.sendAndCollect(request);
-        // Convert responses to ExecutionResults
-        return this.convertResponses(responses);
+        const result = await this.executeForResult(job);
+        return result.executions;
     }
     /**
-     * Checks if the Acurast network is reachable.
+     * Execute a job and return the full QuorumResult.
+     *
+     * This is useful when you need the complete result including
+     * verdict, timing, and quorum metadata.
+     */
+    async executeForResult(job) {
+        // 1. Create the job
+        const createResponse = await this.createJob(job);
+        // 2. Wait for completion
+        const waitResponse = await this.waitForJob(createResponse.id);
+        // 3. Return full result
+        if (!waitResponse.result) {
+            throw new Error(`Job ${waitResponse.id} completed but has no result`);
+        }
+        return waitResponse.result;
+    }
+    /**
+     * Check if the API is reachable and the API key is valid.
      */
     async healthCheck() {
         try {
-            await this.connect();
-            return this.connected;
+            const response = await fetch(`${this.baseUrl}/health`);
+            return response.ok;
         }
         catch {
             return false;
         }
     }
     /**
-     * Closes the WebSocket connection.
+     * Create a job via POST /v1/jobs.
      */
-    async disconnect() {
-        if (this.client) {
-            await this.client.close();
-            this.client = null;
-            this.connected = false;
-        }
+    async createJob(job) {
+        const response = await fetch(`${this.baseUrl}/v1/jobs`, {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${this.apiKey}`,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                config: job.config,
+                quorum: job.quorum,
+            }),
+        });
+        await this.handleErrorResponse(response);
+        return (await response.json());
     }
     /**
-     * Connects to the Acurast P2P WebSocket service.
+     * Wait for a job to complete via GET /v1/jobs/:id/wait.
      */
-    async connect() {
-        if (this.connected && this.client) {
+    async waitForJob(jobId) {
+        const response = await fetch(`${this.baseUrl}/v1/jobs/${jobId}/wait?timeout=${String(this.waitTimeoutMs)}`, {
+            headers: {
+                Authorization: `Bearer ${this.apiKey}`,
+            },
+        });
+        // 408 means timeout - throw specific error
+        if (response.status === 408) {
+            throw new JobTimeoutError(jobId, this.waitTimeoutMs);
+        }
+        await this.handleErrorResponse(response);
+        return (await response.json());
+    }
+    /**
+     * Handle error responses from the API.
+     */
+    async handleErrorResponse(response) {
+        if (response.ok) {
             return;
         }
-        // Dynamically import to avoid issues in environments without WebSocket
-        const { AcurastClient } = await __nccwpck_require__.e(/* import() */ 152).then(__nccwpck_require__.bind(__nccwpck_require__, 152));
-        this.client = new AcurastClient([this.wsUrl], this.connectionTimeoutMs);
-        await this.client.start({
-            publicKey: this.keyPair.publicKey,
-            secretKey: this.keyPair.secretKey,
-        });
-        this.connected = true;
-    }
-    /**
-     * Sends a job request to all processors and collects responses.
-     */
-    async sendAndCollect(request) {
-        if (!this.client) {
-            throw new Error('Not connected to Acurast P2P service');
-        }
-        const responses = [];
-        const pendingProcessors = new Set(this.deploymentPublicKeys);
-        const client = this.client;
-        // Set up response handler
-        const responsePromise = new Promise((resolve) => {
-            const timeout = setTimeout(() => {
-                resolve(responses);
-            }, this.responseTimeoutMs);
-            client.onMessage((message) => {
-                try {
-                    const senderHex = Buffer.from(message.sender).toString('hex');
-                    // Only accept responses from known processors
-                    if (!pendingProcessors.has(senderHex)) {
-                        return;
-                    }
-                    const payloadStr = Buffer.from(message.payload).toString('utf-8');
-                    const response = JSON.parse(payloadStr);
-                    // Verify response is for our request
-                    if (response.requestId !== request.requestId) {
-                        return;
-                    }
-                    responses.push(response);
-                    pendingProcessors.delete(senderHex);
-                    // Check if we have enough responses
-                    if (responses.length >= this.minResponses && pendingProcessors.size === 0) {
-                        clearTimeout(timeout);
-                        resolve(responses);
-                    }
-                }
-                catch (error) {
-                    console.error('Failed to parse Acurast response:', error);
-                }
-            });
-        });
-        // Send request to all processors
-        const requestPayload = JSON.stringify(request);
-        await Promise.all(this.deploymentPublicKeys.map((processorKey) => client.send(processorKey, requestPayload)));
-        return responsePromise;
-    }
-    /**
-     * Converts Acurast responses to ExecutionResults.
-     */
-    convertResponses(responses) {
-        const results = [];
-        for (const response of responses) {
-            if (!response.success || !response.result) {
-                // Failed execution
-                results.push({
-                    processorId: response.result?.processor.id ?? 'unknown',
-                    timestamp: new Date().toISOString(),
-                    status: 'failure',
-                    responseHash: '',
-                    latencyMs: response.result?.durationMs ?? 0,
-                    errorMessage: response.error ?? 'Unknown error',
-                });
-                continue;
+        let errorBody = {};
+        try {
+            const json = await response.json();
+            if (typeof json === 'object' && json !== null) {
+                errorBody = json;
             }
-            const { result } = response;
-            // Verify the processor signature
-            const signatureValid = verifyProcessorSignature(result.signature);
-            if (!signatureValid) {
-                const timestamp = result.executedAt instanceof Date
-                    ? result.executedAt.toISOString()
-                    : new Date().toISOString();
-                results.push({
-                    processorId: result.processor.id,
-                    timestamp,
-                    status: 'failure',
-                    responseHash: '',
-                    latencyMs: result.durationMs,
-                    errorMessage: 'Invalid processor signature',
-                });
-                continue;
-            }
-            // Valid result with verified signature
-            const statusCode = result.statusCode ?? 200;
-            const timestamp = result.executedAt instanceof Date
-                ? result.executedAt.toISOString()
-                : new Date().toISOString();
-            results.push({
-                processorId: result.processor.id,
-                timestamp,
-                status: 'success',
-                statusCode,
-                responseHash: hashResponse(statusCode, result.body),
-                latencyMs: result.durationMs,
-            });
         }
-        return results;
+        catch {
+            // Ignore JSON parse errors
+        }
+        const message = errorBody.error ?? errorBody.message ?? response.statusText;
+        switch (response.status) {
+            case 401:
+                throw new AuthenticationError(message);
+            case 429:
+                throw new QuotaExceededError(message, errorBody.remaining ?? 0, errorBody.limit ?? 0);
+            default:
+                throw new ServerError(message, response.status);
+        }
     }
 }
 /**
- * Creates a new AcurastProvider with the given configuration.
+ * Create a ManagedAdapter with the given configuration.
  * Convenience factory function.
  */
-function createAcurastProvider(config) {
-    return new AcurastProvider(config);
+function createManagedAdapter(config) {
+    return new managed_ManagedAdapter(config);
 }
-//# sourceMappingURL=acurast.js.map
+/**
+ * @deprecated Use ManagedAdapter instead.
+ */
+const ManagedProvider = (/* unused pure expression or super */ null && (managed_ManagedAdapter));
+/**
+ * @deprecated Use createManagedAdapter instead.
+ */
+const createManagedProvider = (/* unused pure expression or super */ null && (createManagedAdapter));
+//# sourceMappingURL=managed.js.map
 ;// CONCATENATED MODULE: ../core/dist/providers/index.js
+/**
+ * Execution Providers
+ *
+ * @deprecated Use adapters from '@quorumci/core/adapters' instead.
+ * This module re-exports adapters for backward compatibility.
+ *
+ * NOTE: Node.js-specific exports (AcurastProvider, signature utilities) are NOT
+ * included here to maintain Workers compatibility. Import them directly if needed:
+ *   import { AcurastAdapter } from '@quorumci/core/adapters/acurast.js';
+ *   import { verifyProcessorSignature } from '@quorumci/core/providers/acurastSignature.js';
+ */
+// Re-export adapters as providers for backward compatibility
+/** @deprecated Use MockAdapter from adapters instead */
 
-
+/** @deprecated Use ManagedAdapter from adapters instead */
 
 //# sourceMappingURL=index.js.map
-;// CONCATENATED MODULE: ../core/dist/jobs/http.js
-
-const DEFAULT_TIMEOUT_MS = 30000;
-const DEFAULT_EXPECTED_STATUS = 200;
-/**
- * Executes HTTP requests and returns execution results.
- */
-class HttpJobRunner {
-    async execute(config, options = {}) {
-        const startTime = Date.now();
-        const processorId = options.processorId ?? 'local';
-        const timeoutMs = config.timeoutMs ?? DEFAULT_TIMEOUT_MS;
-        const expectedStatus = config.expectedStatus ?? DEFAULT_EXPECTED_STATUS;
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => {
-            controller.abort();
-        }, timeoutMs);
-        try {
-            const fetchOptions = {
-                method: config.method ?? 'GET',
-                signal: controller.signal,
-            };
-            if (config.headers !== undefined) {
-                fetchOptions.headers = config.headers;
-            }
-            if (config.body !== undefined) {
-                fetchOptions.body = config.body;
-            }
-            const response = await fetch(config.url, fetchOptions);
-            clearTimeout(timeoutId);
-            const body = await response.text();
-            const statusCode = response.status;
-            const responseHash = hash_hashResponse(statusCode, body);
-            // Check if status matches expected
-            const statusMatches = this.checkStatus(statusCode, expectedStatus);
-            if (statusMatches) {
-                return this.createResult(processorId, startTime, 'success', statusCode, responseHash);
-            }
-            else {
-                return this.createResult(processorId, startTime, 'failure', statusCode, responseHash, {
-                    errorMessage: `Expected status ${String(expectedStatus)}, got ${String(statusCode)}`,
-                });
-            }
-        }
-        catch (error) {
-            clearTimeout(timeoutId);
-            if (error instanceof Error) {
-                if (error.name === 'AbortError') {
-                    return this.createResult(processorId, startTime, 'timeout', undefined, '', {
-                        errorMessage: `Request timed out after ${String(timeoutMs)}ms`,
-                    });
-                }
-                return this.createResult(processorId, startTime, 'error', undefined, '', {
-                    errorMessage: error.message,
-                });
-            }
-            return this.createResult(processorId, startTime, 'error', undefined, '', {
-                errorMessage: 'Unknown error occurred',
-            });
-        }
-    }
-    checkStatus(actual, expected) {
-        if (Array.isArray(expected)) {
-            return expected.includes(actual);
-        }
-        return actual === expected;
-    }
-    createResult(processorId, startTime, status, statusCode, responseHash, extra) {
-        const base = {
-            processorId,
-            timestamp: new Date().toISOString(),
-            status,
-            responseHash,
-            latencyMs: Date.now() - startTime,
-        };
-        if (statusCode !== undefined) {
-            if (extra?.errorMessage !== undefined) {
-                return { ...base, statusCode, errorMessage: extra.errorMessage };
-            }
-            return { ...base, statusCode };
-        }
-        if (extra?.errorMessage !== undefined) {
-            return { ...base, errorMessage: extra.errorMessage };
-        }
-        return base;
-    }
-}
-//# sourceMappingURL=http.js.map
-;// CONCATENATED MODULE: ../core/dist/jobs/webhook.js
-
-const webhook_DEFAULT_TIMEOUT_MS = 30000;
-const webhook_DEFAULT_EXPECTED_STATUS = 200;
-/**
- * Executes webhook requests (POST with JSON payload) and returns execution results.
- */
-class WebhookJobRunner {
-    async execute(config, options = {}) {
-        const startTime = Date.now();
-        const processorId = options.processorId ?? 'local';
-        const timeoutMs = config.timeoutMs ?? webhook_DEFAULT_TIMEOUT_MS;
-        const expectedStatus = config.expectedStatus ?? webhook_DEFAULT_EXPECTED_STATUS;
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => {
-            controller.abort();
-        }, timeoutMs);
-        try {
-            // Serialize payload to JSON
-            const body = JSON.stringify(config.payload);
-            // Build headers with Content-Type
-            const headers = {
-                'Content-Type': 'application/json',
-                ...config.headers,
-            };
-            const fetchOptions = {
-                method: 'POST',
-                headers,
-                body,
-                signal: controller.signal,
-            };
-            const response = await fetch(config.endpoint, fetchOptions);
-            clearTimeout(timeoutId);
-            const responseBody = await response.text();
-            const statusCode = response.status;
-            const responseHash = hash_hashResponse(statusCode, responseBody);
-            // Check if status matches expected
-            const statusMatches = this.checkStatus(statusCode, expectedStatus);
-            if (statusMatches) {
-                return this.createResult(processorId, startTime, 'success', statusCode, responseHash);
-            }
-            else {
-                return this.createResult(processorId, startTime, 'failure', statusCode, responseHash, {
-                    errorMessage: 'Expected status ' + String(expectedStatus) + ', got ' + String(statusCode),
-                });
-            }
-        }
-        catch (error) {
-            clearTimeout(timeoutId);
-            if (error instanceof Error) {
-                if (error.name === 'AbortError') {
-                    return this.createResult(processorId, startTime, 'timeout', undefined, '', {
-                        errorMessage: 'Request timed out after ' + String(timeoutMs) + 'ms',
-                    });
-                }
-                return this.createResult(processorId, startTime, 'error', undefined, '', {
-                    errorMessage: error.message,
-                });
-            }
-            return this.createResult(processorId, startTime, 'error', undefined, '', {
-                errorMessage: 'Unknown error occurred',
-            });
-        }
-    }
-    checkStatus(actual, expected) {
-        if (Array.isArray(expected)) {
-            return expected.includes(actual);
-        }
-        return actual === expected;
-    }
-    createResult(processorId, startTime, status, statusCode, responseHash, extra) {
-        const base = {
-            processorId,
-            timestamp: new Date().toISOString(),
-            status,
-            responseHash,
-            latencyMs: Date.now() - startTime,
-        };
-        if (statusCode !== undefined) {
-            if (extra?.errorMessage !== undefined) {
-                return { ...base, statusCode, errorMessage: extra.errorMessage };
-            }
-            return { ...base, statusCode };
-        }
-        if (extra?.errorMessage !== undefined) {
-            return { ...base, errorMessage: extra.errorMessage };
-        }
-        return base;
-    }
-}
-//# sourceMappingURL=webhook.js.map
 ;// CONCATENATED MODULE: external "node:child_process"
 const external_node_child_process_namespaceObject = __WEBPACK_EXTERNAL_createRequire(import.meta.url)("node:child_process");
 // EXTERNAL MODULE: external "node:fs/promises"
@@ -27622,7 +27008,7 @@ const external_node_os_namespaceObject = __WEBPACK_EXTERNAL_createRequire(import
 
 
 
-const script_DEFAULT_TIMEOUT_MS = 30000;
+const DEFAULT_TIMEOUT_MS = 30000;
 /**
  * Executes scripts (Node.js or Bash) and returns execution results.
  * Scripts should be deterministic and stateless for quorum comparison.
@@ -27631,16 +27017,16 @@ class ScriptJobRunner {
     async execute(config, options = {}) {
         const startTime = Date.now();
         const processorId = options.processorId ?? 'local';
-        const timeoutMs = config.timeoutMs ?? script_DEFAULT_TIMEOUT_MS;
+        const timeoutMs = config.timeoutMs ?? DEFAULT_TIMEOUT_MS;
         // Create temp directory for script file
         let tempDir;
         let scriptPath;
         try {
             // Create temp script file
-            tempDir = await (0,promises_.mkdtemp)((0,external_node_path_namespaceObject.join)((0,external_node_os_namespaceObject.tmpdir)(), 'quorumci-script-'));
+            tempDir = await mkdtemp(join(tmpdir(), 'quorumci-script-'));
             const extension = config.runtime === 'node' ? '.js' : '.sh';
-            scriptPath = (0,external_node_path_namespaceObject.join)(tempDir, 'script' + extension);
-            await (0,promises_.writeFile)(scriptPath, config.script, { mode: 0o755 });
+            scriptPath = join(tempDir, 'script' + extension);
+            await writeFile(scriptPath, config.script, { mode: 0o755 });
             // Determine command based on runtime
             const command = config.runtime === 'node' ? 'node' : 'bash';
             const args = [scriptPath, ...(config.args ?? [])];
@@ -27652,7 +27038,7 @@ class ScriptJobRunner {
             const result = await this.runCommand(command, args, runOptions);
             // Hash the output for quorum comparison
             // Use exit code + stdout as the response
-            const responseHash = hash_hashResponse(result.exitCode, result.stdout);
+            const responseHash = await hashResponse(result.exitCode, result.stdout);
             if (result.timedOut) {
                 return this.createResult(processorId, startTime, 'timeout', result.exitCode, '', {
                     errorMessage: 'Script timed out after ' + String(timeoutMs) + 'ms',
@@ -27677,7 +27063,7 @@ class ScriptJobRunner {
             // Cleanup temp files
             if (scriptPath) {
                 try {
-                    await (0,promises_.unlink)(scriptPath);
+                    await unlink(scriptPath);
                 }
                 catch {
                     // Ignore cleanup errors
@@ -27700,7 +27086,7 @@ class ScriptJobRunner {
             let stdout = '';
             let stderr = '';
             let timedOut = false;
-            const proc = (0,external_node_child_process_namespaceObject.spawn)(command, args, {
+            const proc = spawn(command, args, {
                 env: { ...process.env, ...options.env },
                 stdio: ['ignore', 'pipe', 'pipe'],
             });
@@ -27774,7 +27160,7 @@ class DnsJobRunner {
         const startTime = Date.now();
         const processorId = options.processorId ?? 'local';
         const timeoutMs = config.timeoutMs ?? dns_DEFAULT_TIMEOUT_MS;
-        const resolver = new external_node_dns_promises_namespaceObject.Resolver();
+        const resolver = new Resolver();
         if (config.nameserver) {
             resolver.setServers([config.nameserver]);
         }
@@ -27782,7 +27168,7 @@ class DnsJobRunner {
             const records = await this.resolveWithTimeout(resolver, config.hostname, config.recordType, timeoutMs);
             const sortedRecords = this.sortRecords(records);
             const recordsJson = JSON.stringify(sortedRecords);
-            const responseHash = hash_hashResponse(0, recordsJson);
+            const responseHash = await hashResponse(0, recordsJson);
             // Check expected values if provided
             if (config.expectedValues && config.expectedValues.length > 0) {
                 const recordValues = sortedRecords.map((r) => r.value);
@@ -27927,7 +27313,7 @@ class TlsJobRunner {
                 validTo: certInfo.validTo,
                 serialNumber: certInfo.serialNumber,
             };
-            const responseHash = hash_hashResponse(0, JSON.stringify(certData));
+            const responseHash = await hashResponse(0, JSON.stringify(certData));
             // Check minimum days valid
             if (config.minDaysValid !== undefined) {
                 if (certInfo.daysUntilExpiry < config.minDaysValid) {
@@ -27976,7 +27362,7 @@ class TlsJobRunner {
                 socket.destroy();
                 reject(new Error('timeout'));
             }, timeoutMs);
-            const socket = external_node_tls_namespaceObject.connect({
+            const socket = tls.connect({
                 host: hostname,
                 port,
                 servername: hostname, // SNI
@@ -28046,7 +27432,469 @@ class TlsJobRunner {
 
 
 //# sourceMappingURL=index.js.map
+;// CONCATENATED MODULE: ../core/dist/adapters/cre.js
+/**
+ * CREAdapter - Chainlink Compute Runtime Environment adapter.
+ *
+ * Submits jobs to Chainlink's CRE (Compute Runtime Environment) for
+ * execution on their Decentralized Oracle Network (DON). The DON
+ * provides BFT consensus internally.
+ *
+ * This is an ASYNC adapter:
+ * - submit() sends job to CRE and returns immediately with requestId
+ * - Results arrive later via webhook callback to callbackUrl
+ * - execute() throws an error (use submit() instead)
+ *
+ * Usage:
+ *   const adapter = new CREAdapter({
+ *     workflowEndpoint: 'https://cre.example.com/workflow/execute',
+ *     callbackUrl: 'https://api.example.com/webhooks/cre',
+ *     webhookSecret: 'secret-for-hmac-verification',
+ *   });
+ *   const { requestId } = await adapter.submit(job);
+ *   // Results arrive via webhook POST to callbackUrl
+ *
+ * @see https://docs.chain.link/cre
+ */
+/** Protocol version for CRE job requests */
+const CRE_PROTOCOL_VERSION = '1.0';
+/** Default timeout for CRE submission requests (30 seconds) */
+const cre_DEFAULT_TIMEOUT_MS = 30_000;
+/** Default retry configuration */
+const DEFAULT_RETRY = {
+    maxAttempts: 3,
+    backoffMs: 1000,
+};
+/**
+ * Error thrown when CRE workflow returns an error.
+ */
+class CREExecutionError extends Error {
+    requestId;
+    constructor(requestId, message) {
+        super(message);
+        this.name = 'CREExecutionError';
+        this.requestId = requestId;
+    }
+}
+/**
+ * Error thrown when CRE request times out.
+ */
+class CRETimeoutError extends Error {
+    requestId;
+    timeoutMs;
+    constructor(requestId, timeoutMs) {
+        super(`CRE request ${requestId} timed out after ${String(timeoutMs)}ms`);
+        this.name = 'CRETimeoutError';
+        this.requestId = requestId;
+        this.timeoutMs = timeoutMs;
+    }
+}
+/**
+ * Execution adapter for Chainlink CRE workflows (async model).
+ *
+ * CRE provides BFT consensus at the DON level. This adapter:
+ * - Sets isAsync: true (results arrive via webhook)
+ * - Sets providesConsensus: true (DON consensus is built-in)
+ * - Uses submit() instead of execute()
+ */
+class cre_CREAdapter {
+    name = 'cre';
+    capabilities = {
+        supportedJobTypes: ['http'],
+        providesConsensus: true,
+        signatureVerification: 'bls',
+        isAsync: true,
+        metadata: {
+            network: 'chainlink',
+            consensusType: 'bft',
+        },
+    };
+    workflowEndpoint;
+    authToken;
+    callbackUrl;
+    timeoutMs;
+    retry;
+    constructor(config) {
+        if (!config.workflowEndpoint) {
+            throw new Error('workflowEndpoint is required');
+        }
+        if (!config.callbackUrl) {
+            throw new Error('callbackUrl is required');
+        }
+        this.workflowEndpoint = config.workflowEndpoint;
+        this.callbackUrl = config.callbackUrl;
+        if (config.authToken) {
+            this.authToken = config.authToken;
+        }
+        this.timeoutMs = config.timeoutMs ?? cre_DEFAULT_TIMEOUT_MS;
+        this.retry = config.retry ?? DEFAULT_RETRY;
+    }
+    /**
+     * Execute is not supported for async adapters.
+     * Use submit() instead - results arrive via webhook.
+     */
+    execute() {
+        return Promise.reject(new Error('CREAdapter is async - use submit() instead. Results arrive via webhook callback.'));
+    }
+    /**
+     * Submit a job to the CRE workflow for async execution.
+     *
+     * @param job - The job to submit (must be HTTP type)
+     * @returns Submission result with requestId for correlation
+     */
+    async submit(job) {
+        if (job.config.type !== 'http') {
+            throw new Error(`CREAdapter only supports 'http' jobs, got '${job.config.type}'`);
+        }
+        const httpConfig = job.config;
+        const requestId = crypto.randomUUID();
+        const matchStrategy = job.quorum.matchStrategy;
+        const request = this.buildRequest(requestId, httpConfig, matchStrategy);
+        const response = await this.sendRequest(request);
+        const result = {
+            requestId,
+            accepted: response.accepted,
+        };
+        if (response.error) {
+            result.error = response.error;
+        }
+        return result;
+    }
+    /**
+     * Check if the CRE workflow endpoint is reachable.
+     */
+    async healthCheck() {
+        try {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => {
+                controller.abort();
+            }, 5000);
+            const response = await fetch(this.workflowEndpoint, {
+                method: 'HEAD',
+                signal: controller.signal,
+            });
+            clearTimeout(timeoutId);
+            // Accept any response - just checking connectivity
+            return response.status < 500;
+        }
+        catch {
+            return false;
+        }
+    }
+    /**
+     * Build a CRE job request from an HTTP job config.
+     */
+    buildRequest(requestId, config, matchStrategy) {
+        const http = {
+            method: (config.method ?? 'GET'),
+            url: config.url,
+        };
+        if (config.headers) {
+            http.headers = config.headers;
+        }
+        if (config.body) {
+            http.body = config.body;
+        }
+        if (config.timeoutMs) {
+            http.timeoutMs = config.timeoutMs;
+        }
+        const request = {
+            requestId,
+            version: CRE_PROTOCOL_VERSION,
+            type: 'http',
+            http,
+            callback: {
+                url: this.callbackUrl,
+            },
+        };
+        if (matchStrategy) {
+            request.matchStrategy = matchStrategy;
+        }
+        return request;
+    }
+    /**
+     * Send request to CRE workflow with retry logic.
+     */
+    async sendRequest(request) {
+        let lastError = null;
+        for (let attempt = 1; attempt <= this.retry.maxAttempts; attempt++) {
+            try {
+                return await this.doRequest(request);
+            }
+            catch (error) {
+                lastError = error instanceof Error ? error : new Error(String(error));
+                // Don't retry on client errors (4xx)
+                if (lastError instanceof CREExecutionError) {
+                    throw lastError;
+                }
+                // Don't retry if it's our last attempt
+                if (attempt === this.retry.maxAttempts) {
+                    break;
+                }
+                // Exponential backoff
+                const backoff = this.retry.backoffMs * Math.pow(2, attempt - 1);
+                await this.sleep(backoff);
+            }
+        }
+        throw lastError ?? new Error('Request failed with unknown error');
+    }
+    /**
+     * Make a single submission request to the CRE workflow.
+     */
+    async doRequest(request) {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => {
+            controller.abort();
+        }, this.timeoutMs);
+        try {
+            const headers = {
+                'Content-Type': 'application/json',
+            };
+            if (this.authToken) {
+                headers['Authorization'] = `Bearer ${this.authToken}`;
+            }
+            const response = await fetch(this.workflowEndpoint, {
+                method: 'POST',
+                headers,
+                body: JSON.stringify(request),
+                signal: controller.signal,
+            });
+            // 202 Accepted is expected for async submission
+            if (response.status === 202 || response.ok) {
+                const json = await response.json();
+                return json;
+            }
+            const text = await response.text();
+            // Only throw CREExecutionError for 4xx (client errors) - not retried
+            // For 5xx (server errors), throw regular Error - will be retried
+            if (response.status >= 400 && response.status < 500) {
+                throw new CREExecutionError(request.requestId, `CRE submission failed with status ${String(response.status)}: ${text}`);
+            }
+            throw new Error(`CRE submission failed with status ${String(response.status)}: ${text}`);
+        }
+        catch (error) {
+            if (error instanceof Error && error.name === 'AbortError') {
+                throw new CRETimeoutError(request.requestId, this.timeoutMs);
+            }
+            throw error;
+        }
+        finally {
+            clearTimeout(timeoutId);
+        }
+    }
+    /**
+     * Sleep helper for retry backoff.
+     */
+    sleep(ms) {
+        return new Promise((resolve) => setTimeout(resolve, ms));
+    }
+}
+/**
+ * Creates a new CREAdapter with the given configuration.
+ * Convenience factory function.
+ */
+function createCREAdapter(config) {
+    return new cre_CREAdapter(config);
+}
+//# sourceMappingURL=cre.js.map
+;// CONCATENATED MODULE: ../core/dist/adapters/factory.js
+/**
+ * Adapter Factory
+ *
+ * Creates execution adapters based on configuration or environment variables.
+ * Used for config-driven adapter selection (one adapter per deployment).
+ *
+ * NOTE: Fabric and Acurast adapters are NOT available through the factory.
+ * They require Node.js-specific APIs and are not compatible with Workers runtime.
+ * Import them directly if needed in a Node.js environment:
+ *   import { FabricAdapter } from '@quorumci/core/adapters/fabric.js';
+ *   import { AcurastAdapter } from '@quorumci/core/adapters/acurast.js';
+ */
+
+
+
+
+
+/**
+ * Create an execution adapter based on configuration.
+ *
+ * @param config - Adapter configuration with type and type-specific options
+ * @returns Configured execution adapter
+ * @throws Error if configuration is invalid or incomplete
+ */
+function createAdapter(config) {
+    switch (config.type) {
+        case 'aws': {
+            if (!config.aws) {
+                throw new Error('AWS config required when type is "aws"');
+            }
+            return new AWSAdapter(config.aws);
+        }
+        case 'cre': {
+            if (!config.cre) {
+                throw new Error('CRE config required when type is "cre"');
+            }
+            return new CREAdapter(config.cre);
+        }
+        case 'local': {
+            return new LocalAdapter(config.local);
+        }
+        case 'managed': {
+            if (!config.managed) {
+                throw new Error('Managed config required when type is "managed"');
+            }
+            return new ManagedAdapter(config.managed);
+        }
+        case 'mock': {
+            return new MockAdapter(config.mock ?? []);
+        }
+        default: {
+            const exhaustive = config.type;
+            throw new Error(`Unknown adapter type: ${exhaustive}`);
+        }
+    }
+}
+/**
+ * Environment variable names for adapter configuration.
+ */
+const ADAPTER_ENV_VARS = {
+    /** Adapter type: 'aws' | 'cre' | 'local' | 'managed' */
+    TYPE: 'QUORUM_ADAPTER_TYPE',
+    // AWS Lambda (multi-region job runners)
+    AWS_LAMBDA_REGIONS: 'AWS_LAMBDA_REGIONS', // Comma-separated: "us-east-1,eu-west-1"
+    AWS_LAMBDA_ARNS: 'AWS_LAMBDA_ARNS', // Comma-separated ARNs (same order as regions)
+    AWS_LAMBDA_TIMEOUT_MS: 'AWS_LAMBDA_TIMEOUT_MS',
+    // CRE (async adapter - results arrive via webhook)
+    CRE_WORKFLOW_ENDPOINT: 'CRE_WORKFLOW_ENDPOINT',
+    CRE_AUTH_TOKEN: 'CRE_AUTH_TOKEN',
+    CRE_CALLBACK_URL: 'CRE_CALLBACK_URL',
+    CRE_WEBHOOK_SECRET: 'CRE_WEBHOOK_SECRET',
+    CRE_TIMEOUT_MS: 'CRE_TIMEOUT_MS',
+    // Managed
+    MANAGED_API_KEY: 'QUORUM_API_KEY',
+    MANAGED_BASE_URL: 'QUORUM_API_URL',
+};
+/**
+ * Create adapter from environment variables.
+ *
+ * Reads QUORUM_ADAPTER_TYPE and adapter-specific variables to construct
+ * the appropriate adapter.
+ *
+ * NOTE: Fabric and Acurast adapters are NOT supported via env vars.
+ * They require Node.js-specific APIs. Import them directly if needed.
+ *
+ * @param env - Environment variables (defaults to process.env)
+ * @returns Configured execution adapter
+ * @throws Error if required environment variables are missing
+ */
+function createAdapterFromEnv(env = process.env) {
+    const type = (env[ADAPTER_ENV_VARS.TYPE] ?? 'local');
+    switch (type) {
+        case 'acurast':
+            throw new Error('Acurast adapter requires Node.js-specific APIs and is not available via factory. ' +
+                "Import directly: import { AcurastAdapter } from '@quorumci/core/adapters/acurast.js'");
+        case 'fabric':
+            throw new Error('Fabric adapter requires Node.js-specific APIs and is not available via factory. ' +
+                "Import directly: import { FabricAdapter } from '@quorumci/core/adapters/fabric.js'");
+        case 'aws': {
+            const regionsStr = env[ADAPTER_ENV_VARS.AWS_LAMBDA_REGIONS];
+            const arnsStr = env[ADAPTER_ENV_VARS.AWS_LAMBDA_ARNS];
+            const timeoutMs = env[ADAPTER_ENV_VARS.AWS_LAMBDA_TIMEOUT_MS];
+            if (!regionsStr) {
+                throw new Error(`${ADAPTER_ENV_VARS.AWS_LAMBDA_REGIONS} is required for AWS adapter`);
+            }
+            if (!arnsStr) {
+                throw new Error(`${ADAPTER_ENV_VARS.AWS_LAMBDA_ARNS} is required for AWS adapter`);
+            }
+            const regions = regionsStr.split(',').map((r) => r.trim());
+            const arns = arnsStr.split(',').map((a) => a.trim());
+            if (regions.length !== arns.length) {
+                throw new Error('AWS_LAMBDA_REGIONS and AWS_LAMBDA_ARNS must have the same number of items');
+            }
+            const awsConfig = {
+                regions: regions.map((region, i) => ({
+                    region,
+                    functionArn: arns[i],
+                })),
+            };
+            if (timeoutMs) {
+                awsConfig.timeoutMs = parseInt(timeoutMs, 10);
+            }
+            return new AWSAdapter(awsConfig);
+        }
+        case 'cre': {
+            const workflowEndpoint = env[ADAPTER_ENV_VARS.CRE_WORKFLOW_ENDPOINT];
+            const authToken = env[ADAPTER_ENV_VARS.CRE_AUTH_TOKEN];
+            const callbackUrl = env[ADAPTER_ENV_VARS.CRE_CALLBACK_URL];
+            const timeoutMs = env[ADAPTER_ENV_VARS.CRE_TIMEOUT_MS];
+            if (!workflowEndpoint) {
+                throw new Error(`${ADAPTER_ENV_VARS.CRE_WORKFLOW_ENDPOINT} is required for CRE adapter`);
+            }
+            if (!callbackUrl) {
+                throw new Error(`${ADAPTER_ENV_VARS.CRE_CALLBACK_URL} is required for CRE adapter`);
+            }
+            const creConfig = {
+                workflowEndpoint,
+                callbackUrl,
+            };
+            if (authToken) {
+                creConfig.authToken = authToken;
+            }
+            if (timeoutMs) {
+                creConfig.timeoutMs = parseInt(timeoutMs, 10);
+            }
+            return new CREAdapter(creConfig);
+        }
+        case 'managed': {
+            const apiKey = env[ADAPTER_ENV_VARS.MANAGED_API_KEY];
+            const baseUrl = env[ADAPTER_ENV_VARS.MANAGED_BASE_URL];
+            if (!apiKey) {
+                throw new Error(`${ADAPTER_ENV_VARS.MANAGED_API_KEY} is required for Managed adapter`);
+            }
+            const managedConfig = { apiKey };
+            if (baseUrl) {
+                managedConfig.baseUrl = baseUrl;
+            }
+            return new ManagedAdapter(managedConfig);
+        }
+        case 'local':
+            return new LocalAdapter();
+        case 'mock':
+            // Mock adapter should be created directly with responses
+            throw new Error('Mock adapter cannot be created from environment. Use createAdapter() directly.');
+        default: {
+            // Treat unknown types as local for safety
+            console.warn(`Unknown adapter type "${type}", falling back to local`);
+            return new LocalAdapter();
+        }
+    }
+}
+//# sourceMappingURL=factory.js.map
+;// CONCATENATED MODULE: ../core/dist/adapters/index.js
+/**
+ * Execution Adapters
+ *
+ * Unified interface for executing jobs across different decentralized
+ * compute backends (Acurast, Chainlink CRE, local testing).
+ *
+ * NOTE: Node.js-specific adapters (Fabric, Acurast) are NOT exported from this file
+ * to ensure compatibility with Cloudflare Workers. Import them directly from their
+ * respective files if needed in a Node.js environment:
+ *   import { FabricAdapter } from '@quorumci/core/adapters/fabric.js';
+ *   import { AcurastAdapter } from '@quorumci/core/adapters/acurast.js';
+ */
+// Workers-compatible adapters
+
+
+
+
+
+
+// Factory
+
+//# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ../core/dist/index.js
+
 
 
 
@@ -28131,6 +27979,11 @@ function getInputs() {
         type !== 'tls') {
         throw new Error('Invalid type: ' + type + ". Must be 'http', 'webhook', 'script', 'dns', or 'tls'");
     }
+    const apiKey = core.getInput('api-key', { required: true });
+    if (!apiKey) {
+        throw new Error('api-key is required');
+    }
+    const apiBaseUrl = core.getInput('api-base-url') || undefined;
     // HTTP-specific validation
     const url = core.getInput('url') || undefined;
     if (type === 'http' && !url) {
@@ -28191,11 +28044,15 @@ function getInputs() {
     }
     const result = {
         type,
+        apiKey,
         expectedStatus,
         executions,
         quorum,
         timeoutMs,
     };
+    if (apiBaseUrl !== undefined) {
+        result.apiBaseUrl = apiBaseUrl;
+    }
     // HTTP fields
     if (url !== undefined) {
         result.url = url;
@@ -28476,92 +28333,39 @@ function formatExecutionRow(exec) {
 
 
 
+async function getJobConfig(inputs) {
+    switch (inputs.type) {
+        case 'http':
+            return toHttpJobConfig(inputs);
+        case 'webhook':
+            return toWebhookJobConfig(inputs);
+        case 'script':
+            return await toScriptJobConfig(inputs);
+        case 'dns':
+            return toDnsJobConfig(inputs);
+        case 'tls':
+            return toTlsJobConfig(inputs);
+    }
+}
 async function run() {
     try {
         const inputs = getInputs();
+        const providerConfig = {
+            apiKey: inputs.apiKey,
+        };
+        if (inputs.apiBaseUrl !== undefined) {
+            providerConfig.baseUrl = inputs.apiBaseUrl;
+        }
+        const provider = new managed_ManagedAdapter(providerConfig);
+        const jobConfig = await getJobConfig(inputs);
         const quorumConfig = toQuorumConfig(inputs);
-        const aggregator = new QuorumAggregator();
-        const jobId = (0,external_node_crypto_.randomUUID)();
-        const startTime = Date.now();
-        const results = [];
-        if (inputs.type === 'http') {
-            const jobConfig = toHttpJobConfig(inputs);
-            const runner = new HttpJobRunner();
-            core.info('Running ' +
-                String(inputs.executions) +
-                ' executions against ' +
-                (inputs.url ?? '') +
-                '...');
-            for (let i = 0; i < inputs.executions; i++) {
-                const result = await runner.execute(jobConfig, { processorId: 'local-' + String(i + 1) });
-                results.push(result);
-                core.info('  Execution ' + String(i + 1) + ': ' + result.status);
-            }
-        }
-        else if (inputs.type === 'webhook') {
-            const jobConfig = toWebhookJobConfig(inputs);
-            const runner = new WebhookJobRunner();
-            core.info('Running ' +
-                String(inputs.executions) +
-                ' webhook executions against ' +
-                (inputs.endpoint ?? '') +
-                '...');
-            for (let i = 0; i < inputs.executions; i++) {
-                const result = await runner.execute(jobConfig, { processorId: 'local-' + String(i + 1) });
-                results.push(result);
-                core.info('  Execution ' + String(i + 1) + ': ' + result.status);
-            }
-        }
-        else if (inputs.type === 'script') {
-            const jobConfig = await toScriptJobConfig(inputs);
-            const runner = new ScriptJobRunner();
-            const runtime = inputs.runtime ?? 'node';
-            core.info('Running ' +
-                String(inputs.executions) +
-                ' script executions with ' +
-                runtime +
-                ' runtime...');
-            for (let i = 0; i < inputs.executions; i++) {
-                const result = await runner.execute(jobConfig, { processorId: 'local-' + String(i + 1) });
-                results.push(result);
-                core.info('  Execution ' + String(i + 1) + ': ' + result.status);
-            }
-        }
-        else if (inputs.type === 'dns') {
-            const jobConfig = toDnsJobConfig(inputs);
-            const runner = new DnsJobRunner();
-            const recordType = inputs.recordType ?? 'A';
-            core.info('Running ' +
-                String(inputs.executions) +
-                ' DNS lookups for ' +
-                (inputs.hostname ?? '') +
-                ' (' +
-                recordType +
-                ')...');
-            for (let i = 0; i < inputs.executions; i++) {
-                const result = await runner.execute(jobConfig, { processorId: 'local-' + String(i + 1) });
-                results.push(result);
-                core.info('  Execution ' + String(i + 1) + ': ' + result.status);
-            }
-        }
-        else {
-            const jobConfig = toTlsJobConfig(inputs);
-            const runner = new TlsJobRunner();
-            const port = inputs.port ?? 443;
-            core.info('Running ' +
-                String(inputs.executions) +
-                ' TLS certificate checks for ' +
-                (inputs.hostname ?? '') +
-                ':' +
-                String(port) +
-                '...');
-            for (let i = 0; i < inputs.executions; i++) {
-                const result = await runner.execute(jobConfig, { processorId: 'local-' + String(i + 1) });
-                results.push(result);
-                core.info('  Execution ' + String(i + 1) + ': ' + result.status);
-            }
-        }
-        const quorumResult = aggregator.aggregate(results, quorumConfig, jobId, startTime);
+        const job = {
+            id: (0,external_node_crypto_.randomUUID)(),
+            config: jobConfig,
+            quorum: quorumConfig,
+            createdAt: new Date().toISOString(),
+        };
+        const quorumResult = await provider.executeForResult(job);
         setOutputs(quorumResult);
         await writeSummary(quorumResult, inputs);
         if (quorumResult.verdict === 'pass') {

@@ -76,6 +76,11 @@ export function getInputs() {
         type !== 'tls') {
         throw new Error('Invalid type: ' + type + ". Must be 'http', 'webhook', 'script', 'dns', or 'tls'");
     }
+    const apiKey = core.getInput('api-key', { required: true });
+    if (!apiKey) {
+        throw new Error('api-key is required');
+    }
+    const apiBaseUrl = core.getInput('api-base-url') || undefined;
     // HTTP-specific validation
     const url = core.getInput('url') || undefined;
     if (type === 'http' && !url) {
@@ -136,11 +141,15 @@ export function getInputs() {
     }
     const result = {
         type,
+        apiKey,
         expectedStatus,
         executions,
         quorum,
         timeoutMs,
     };
+    if (apiBaseUrl !== undefined) {
+        result.apiBaseUrl = apiBaseUrl;
+    }
     // HTTP fields
     if (url !== undefined) {
         result.url = url;

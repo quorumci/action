@@ -6,9 +6,15 @@ branding:
   color: 'blue'
 
 inputs:
+  api-key:
+    description: 'QuorumCI API key (qci_live_* or qci_test_*)'
+    required: true
   type:
     description: 'Job type (http, webhook, script, dns, or tls)'
     required: true
+  api-base-url:
+    description: 'QuorumCI API base URL (default: https://api.quorumci.com)'
+    required: false
   # HTTP job inputs
   url:
     description: 'Target URL for HTTP jobs'
